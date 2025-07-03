@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import '../assets/styles.css';
+import courseData from '../data/courses.json';//import 'bootstrap-icons/font/bootstrap-icons.css';
+//import '@fortawesome/fontawesome-free/css/all.min.css';
+//import '../assets/styles.css';
 
 const CoursesPage = () => {
   const [user, setUser] = useState(null);
@@ -16,11 +16,12 @@ const CoursesPage = () => {
   const [newReview, setNewReview] = useState('');
 
   useEffect(() => {
-    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    setUser(loggedInUser);
-    const storedCourses = JSON.parse(localStorage.getItem('courses')) || [];
-    setCourses(storedCourses);
-  }, []);
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+  setUser(loggedInUser);
+
+  setCourses(courseData); // directly set from imported file
+  localStorage.setItem('courses', JSON.stringify(courseData)); // optional
+}, []);
 
   const handleLogout = () => {
     localStorage.removeItem('loggedInUser');
